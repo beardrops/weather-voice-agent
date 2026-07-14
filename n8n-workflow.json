@@ -1,0 +1,134 @@
+{
+  "name": "Weather Voice Agent (n8n)",
+  "nodes": [
+    {
+      "id": "webhook-in",
+      "name": "Webhook (from Retell)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "weather-check",
+      "parameters": {
+        "path": "weather-check",
+        "method": "POST",
+        "options": {}
+      }
+    },
+    {
+      "id": "geocode",
+      "name": "Geocode City (HTTP Request)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [450, 300],
+      "parameters": {
+        "url": "=https://geocoding-api.open-meteo.com/v1/search?name={{ $json.city }}&count=5&language=en&format=json",
+        "method": "GET",
+        "options": {},
+        "sendQuery": true,
+        "sendBody": false,
+        "sendHeaders": false
+      }
+    },
+    {
+      "id": "check-response",
+      "name": "Check Geocode Result",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [650, 300],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.results.length }}",
+              "operation": "largerEqual",
+              "value2": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "weather",
+      "name": "Get Weather (HTTP Request)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [850, 200],
+      "parameters": {
+        "url": "=https://api.open-meteo.com/v1/forecast?latitude={{ $json.results[0].latitude }}&longitude={{ $json.results[0].longitude }}&current_weather=true&temperature_unit=celsius",
+        "method": "GET",
+        "options": {}
+      }
+    },
+    {
+      "id": "cold-check",
+      "name": "Check if Cold",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [850, 400],
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.current_weather.temperature }}",
+              "operation": "smaller",
+              "value2": 10
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "send-sms",
+      "name": "Send SMS (Twilio)",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [1050, 200],
+      "parameters": {
+        "resource": "message",
+        "operation": "create",
+        "to": "={{ $('Webhook (from Retell)').item.json.callerPhone }}",
+        "body": "=🧥 Cold weather alert! It's {{ $json.current_weather.temperature }}°C today. Don't forget your coat!"
+      },
+      "credentials": {
+        "twilioApi": "Twilio Account"
+      }
+    },
+    {
+      "id": "response",
+      "name": "Response to Retell",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1050, 400],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"temperature\": {{ $json.current_weather.temperature }},\n  \"condition\": {{ $json.current_weather.weathercode }},\n  \"message\": \"The temperature is {{ $json.current_weather.temperature }}°C. {{ $('Check if Cold').item.json.coldAlertSent ? 'A cold alert was sent to your phone.' : 'No coat needed today.' }}\",\n  \"coldAlertSent\": {{ $('Check if Cold').item.json.coldAlertSent }}\n}"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook (from Retell)": {
+      "main": [[{ node: "Geocode City (HTTP Request)", type: "main", index: 0 }]]
+    },
+    "Geocode City (HTTP Request)": {
+      "main": [[{ node: "Check Geocode Result", type: "main", index: 0 }]]
+    },
+    "Check Geocode Result": {
+      "main": [
+        [{ node: "Get Weather (HTTP Request)", type: "main", index: 0 }],
+        [{ node: "Check if Cold", type: "main", index: 0 }]
+      ]
+    },
+    "Get Weather (HTTP Request)": {
+      "main": [[{ node: "Check if Cold", type: "main", index: 0 }]]
+    },
+    "Check if Cold": {
+      "main": [
+        [{ node: "Send SMS (Twilio)", type: "main", index: 0 }],
+        [{ node: "Response to Retell", type: "main", index: 0 }]
+      ]
+    },
+    "Send SMS (Twilio)": {
+      "main": [[{ node: "Response to Retell", type: "main", index: 0 }]]
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "agent_name": "Weather Assistant",
+  "agent_type": "voice",
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "temperature": 0.3,
+    "system_prompt_file": "retell-agent-prompt.md"
+  },
+  "voice": {
+    "model": "retell-llama-3.1-8b",
+    "speed": 1.0,
+    "language": "en-US"
+  },
+  "tools": [
+    {
+      "name": "check_weather",
+      "type": "webhook",
+      "url": "https://YOUR_APP_URL.com/api/weather-check",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "description": "Check the current weather for a given city. Returns temperature and sends SMS if cold.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "description": "The city or town name to check weather for"
+          },
+          "country": {
+            "type": "string",
+            "description": "Optional country or state name for disambiguation"
+          }
+        },
+        "required": ["city"]
+      },
+      "response_transform": {
+        "include_fields": ["temperature", "condition", "message", "coldAlertSent"]
+      }
+    }
+  ],
+  "end_call_after_tool": false,
+  "greeting_message": "Hello! I'm your weather assistant. Which town or city would you like to check the weather for?",
+  "no_input_timeout_ms": 5000,
+  "max_duration_ms": 300000
+}
