@@ -71,12 +71,12 @@ class WeatherCheckService
         $mail->SMTPAuth = true;
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
-        $mail->Username = 'your@gmail.com';
-        $mail->Password = 'ynqhl twzp anlm decn';
-        $mail->setFrom('your_weather_agent@gmail.com', 'Fancy Weather Agent here');
+        $mail->Username = 'dorin.roseti@gmail.com';
+        $mail->Password = 'nqhltwzpanlmdecn';
+        $mail->setFrom('weather@gmail.com', 'Weather Agent');
         $mail->addAddress('dorin.roseti@gmail.com');
-        $mail->Subject = 'Weather report';
-        $mail->Body = $body;
+        $mail->Subject = 'Weather Report';
+        $mail->Body = 'Hello, this works!';
         $mail->send();
 
         return new WeatherCheckResult(
