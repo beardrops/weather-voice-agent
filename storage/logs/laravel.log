@@ -1,0 +1,120 @@
+[2026-07-15 09:30:12] production.ERROR: The /home/dorin/weather-voice-agent/bootstrap/cache directory must be present and writable. {"exception":"[object] (Exception(code: 0): The /home/dorin/weather-voice-agent/bootstrap/cache directory must be present and writable. at /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php:179)
+[stacktrace]
+#0 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(132): Illuminate\\Foundation\\PackageManifest->write()
+#1 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(108): Illuminate\\Foundation\\PackageManifest->build()
+#2 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(91): Illuminate\\Foundation\\PackageManifest->getManifest()
+#3 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/PackageManifest.php(80): Illuminate\\Foundation\\PackageManifest->config()
+#4 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterFacades.php(26): Illuminate\\Foundation\\PackageManifest->aliases()
+#5 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(342): Illuminate\\Foundation\\Bootstrap\\RegisterFacades->bootstrap()
+#6 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(187): Illuminate\\Foundation\\Application->bootstrapWith()
+#7 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(171): Illuminate\\Foundation\\Http\\Kernel->bootstrap()
+#8 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(145): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#9 /home/dorin/weather-voice-agent/public/index.php(17): Illuminate\\Foundation\\Http\\Kernel->handle()
+#10 Command line code(4): require('...')
+#11 {main}
+"} 
+[2026-07-15 09:30:12] production.ERROR: Uncaught ReflectionException: Class "view" does not exist in /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php:959
+Stack trace:
+#0 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(959): ReflectionClass->__construct()
+#1 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(832): Illuminate\Container\Container->build()
+#2 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#3 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(763): Illuminate\Foundation\Application->resolve()
+#4 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#5 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(1580): Illuminate\Foundation\Application->make()
+#6 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(239): Illuminate\Container\Container->offsetGet()
+#7 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(210): Illuminate\Support\Facades\Facade::resolveFacadeInstance()
+#8 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(355): Illuminate\Support\Facades\Facade::getFacadeRoot()
+#9 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/RegisterErrorViewPaths.php(17): Illuminate\Support\Facades\Facade::__callStatic()
+#10 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(915): Illuminate\Foundation\Exceptions\RegisterErrorViewPaths->__invoke()
+#11 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(890): Illuminate\Foundation\Exceptions\Handler->registerErrorViewPaths()
+#12 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(815): Illuminate\Foundation\Exceptions\Handler->renderHttpException()
+#13 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(706): Illuminate\Foundation\Exceptions\Handler->prepareResponse()
+#14 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(594): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse()
+#15 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(575): Illuminate\Foundation\Exceptions\Handler->render()
+#16 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(149): Illuminate\Foundation\Http\Kernel->renderException()
+#17 /home/dorin/weather-voice-agent/public/index.php(17): Illuminate\Foundation\Http\Kernel->handle()
+#18 Command line code(4): require('...')
+#19 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [view] does not exist. in /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php:961
+Stack trace:
+#0 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(832): Illuminate\Container\Container->build()
+#1 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#2 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(763): Illuminate\Foundation\Application->resolve()
+#3 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#4 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(1580): Illuminate\Foundation\Application->make()
+#5 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(239): Illuminate\Container\Container->offsetGet()
+#6 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(210): Illuminate\Support\Facades\Facade::resolveFacadeInstance()
+#7 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(355): Illuminate\Support\Facades\Facade::getFacadeRoot()
+#8 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/RegisterErrorViewPaths.php(17): Illuminate\Support\Facades\Facade::__callStatic()
+#9 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(915): Illuminate\Foundation\Exceptions\RegisterErrorViewPaths->__invoke()
+#10 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(890): Illuminate\Foundation\Exceptions\Handler->registerErrorViewPaths()
+#11 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(815): Illuminate\Foundation\Exceptions\Handler->renderHttpException()
+#12 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(706): Illuminate\Foundation\Exceptions\Handler->prepareResponse()
+#13 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(594): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse()
+#14 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(575): Illuminate\Foundation\Exceptions\Handler->render()
+#15 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(149): Illuminate\Foundation\Http\Kernel->renderException()
+#16 /home/dorin/weather-voice-agent/public/index.php(17): Illuminate\Foundation\Http\Kernel->handle()
+#17 Command line code(4): require('...')
+#18 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught ReflectionException: Class \"view\" does not exist in /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php:959
+Stack trace:
+#0 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(959): ReflectionClass->__construct()
+#1 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(832): Illuminate\\Container\\Container->build()
+#2 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\\Container\\Container->resolve()
+#3 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(763): Illuminate\\Foundation\\Application->resolve()
+#4 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\\Container\\Container->make()
+#5 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(1580): Illuminate\\Foundation\\Application->make()
+#6 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(239): Illuminate\\Container\\Container->offsetGet()
+#7 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(210): Illuminate\\Support\\Facades\\Facade::resolveFacadeInstance()
+#8 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(355): Illuminate\\Support\\Facades\\Facade::getFacadeRoot()
+#9 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/RegisterErrorViewPaths.php(17): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#10 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(915): Illuminate\\Foundation\\Exceptions\\RegisterErrorViewPaths->__invoke()
+#11 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(890): Illuminate\\Foundation\\Exceptions\\Handler->registerErrorViewPaths()
+#12 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(815): Illuminate\\Foundation\\Exceptions\\Handler->renderHttpException()
+#13 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(706): Illuminate\\Foundation\\Exceptions\\Handler->prepareResponse()
+#14 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(594): Illuminate\\Foundation\\Exceptions\\Handler->renderExceptionResponse()
+#15 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(575): Illuminate\\Foundation\\Exceptions\\Handler->render()
+#16 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(149): Illuminate\\Foundation\\Http\\Kernel->renderException()
+#17 /home/dorin/weather-voice-agent/public/index.php(17): Illuminate\\Foundation\\Http\\Kernel->handle()
+#18 Command line code(4): require('...')
+#19 {main}
+
+Next Illuminate\\Contracts\\Container\\BindingResolutionException: Target class [view] does not exist. in /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php:961
+Stack trace:
+#0 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(832): Illuminate\\Container\\Container->build()
+#1 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\\Container\\Container->resolve()
+#2 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(763): Illuminate\\Foundation\\Application->resolve()
+#3 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\\Container\\Container->make()
+#4 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php(1580): Illuminate\\Foundation\\Application->make()
+#5 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(239): Illuminate\\Container\\Container->offsetGet()
+#6 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(210): Illuminate\\Support\\Facades\\Facade::resolveFacadeInstance()
+#7 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(355): Illuminate\\Support\\Facades\\Facade::getFacadeRoot()
+#8 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/RegisterErrorViewPaths.php(17): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#9 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(915): Illuminate\\Foundation\\Exceptions\\RegisterErrorViewPaths->__invoke()
+#10 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(890): Illuminate\\Foundation\\Exceptions\\Handler->registerErrorViewPaths()
+#11 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(815): Illuminate\\Foundation\\Exceptions\\Handler->renderHttpException()
+#12 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(706): Illuminate\\Foundation\\Exceptions\\Handler->prepareResponse()
+#13 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(594): Illuminate\\Foundation\\Exceptions\\Handler->renderExceptionResponse()
+#14 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(575): Illuminate\\Foundation\\Exceptions\\Handler->render()
+#15 /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(149): Illuminate\\Foundation\\Http\\Kernel->renderException()
+#16 /home/dorin/weather-voice-agent/public/index.php(17): Illuminate\\Foundation\\Http\\Kernel->handle()
+#17 Command line code(4): require('...')
+#18 {main}
+  thrown at /home/dorin/weather-voice-agent/vendor/laravel/framework/src/Illuminate/Container/Container.php:961)
+[stacktrace]
+#0 {main}
+"} 
+[2026-07-15 11:07:55] testing.INFO: Incoming weather check request {"body":[],"ip":"127.0.0.1","headers":{"content-type":"application/json","x-retell-signature":null,"user-agent":"Symfony"}} 
+[2026-07-15 11:07:55] testing.INFO: Incoming weather check request {"body":{"callerPhone":"+123"},"ip":"127.0.0.1","headers":{"content-type":"application/json","x-retell-signature":null,"user-agent":"Symfony"}} 
+[2026-07-15 11:07:55] testing.INFO: Incoming weather check request {"body":{"city":null},"ip":"127.0.0.1","headers":{"content-type":"application/json","x-retell-signature":null,"user-agent":"Symfony"}} 
+[2026-07-15 11:07:55] testing.INFO: Incoming weather check request {"body":{"city":"London","callerPhone":"+123"},"ip":"127.0.0.1","headers":{"content-type":"application/json","x-retell-signature":null,"user-agent":"Symfony"}} 
+[2026-07-15 11:07:55] testing.INFO: Processing weather check {"city":"London","country":null,"callerPhone":"+123****"} 
+[2026-07-15 11:07:55] testing.INFO: Outgoing HTTP request to Open-Meteo {"url":"https://geocoding-api.open-meteo.com/v1/search?name=London&count=5&language=en&format=json"} 
+[2026-07-15 11:07:55] testing.INFO: Open-Meteo HTTP response received {"url":"https://geocoding-api.open-meteo.com/v1/search?name=London&count=5&language=en&format=json","body_preview":"{\"results\":[{\"id\":2643743,\"name\":\"London\",\"latitude\":51.50853,\"longitude\":-0.12574,\"elevation\":25.0,\"feature_code\":\"PPLC\",\"country_code\":\"GB\",\"admin1_id\":6269131,\"admin2_id\":2648110,\"timezone\":\"Europe/London\",\"population\":8961989,\"country_id\":2635167,\"country\":\"United Kingdom\",\"admin1\":\"England\",\"admin2\":\"Greater London\"},{\"id\":6058560,\"name\":\"London\",\"latitude\":42.98339,\"longitude\":-81.23304,\"elevation\":252.0,\"feature_code\":\"PPL\",\"country_code\":\"CA\",\"admin1_id\":6093943,\"admin2_id\":6073256,\"time"} 
+[2026-07-15 11:07:55] testing.INFO: Weather check response {"status":400,"body":{"error":"ambiguous_city","message":"There are several places called \"London\": London, England GB; London, Ontario CA; London, Ohio US. Could you be more specific?","options":[{"name":"London","admin":"England","country":"GB","latitude":51.50853,"longitude":-0.12574},{"name":"London","admin":"Ontario","country":"CA","latitude":42.98339,"longitude":-81.23304},{"name":"London","admin":"Ohio","country":"US","latitude":39.88645,"longitude":-83.44825}]}} 
+[2026-07-15 11:07:55] testing.INFO: Incoming weather check request {"body":{"city":"London","country":"UK","callerPhone":"+123"},"ip":"127.0.0.1","headers":{"content-type":"application/json","x-retell-signature":null,"user-agent":"Symfony"}} 
+[2026-07-15 11:07:55] testing.INFO: Processing weather check {"city":"London","country":"UK","callerPhone":"+123****"} 
+[2026-07-15 11:07:55] testing.INFO: Outgoing HTTP request to Open-Meteo {"url":"https://geocoding-api.open-meteo.com/v1/search?name=London&count=5&language=en&format=json&country=UK"} 
+[2026-07-15 11:07:55] testing.INFO: Open-Meteo HTTP response received {"url":"https://geocoding-api.open-meteo.com/v1/search?name=London&count=5&language=en&format=json&country=UK","body_preview":"{\"results\":[{\"id\":2643743,\"name\":\"London\",\"latitude\":51.50853,\"longitude\":-0.12574,\"elevation\":25.0,\"feature_code\":\"PPLC\",\"country_code\":\"GB\",\"admin1_id\":6269131,\"admin2_id\":2648110,\"timezone\":\"Europe/London\",\"population\":8961989,\"country_id\":2635167,\"country\":\"United Kingdom\",\"admin1\":\"England\",\"admin2\":\"Greater London\"},{\"id\":6058560,\"name\":\"London\",\"latitude\":42.98339,\"longitude\":-81.23304,\"elevation\":252.0,\"feature_code\":\"PPL\",\"country_code\":\"CA\",\"admin1_id\":6093943,\"admin2_id\":6073256,\"time"} 
+[2026-07-15 11:07:55] testing.INFO: Weather check response {"status":400,"body":{"error":"ambiguous_city","message":"There are several places called \"London\": London, England GB; London, Ontario CA; London, Ohio US. Could you be more specific?","options":[{"name":"London","admin":"England","country":"GB","latitude":51.50853,"longitude":-0.12574},{"name":"London","admin":"Ontario","country":"CA","latitude":42.98339,"longitude":-81.23304},{"name":"London","admin":"Ohio","country":"US","latitude":39.88645,"longitude":-83.44825}]}} 
