@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\ValueObjects\WeatherCheckResult;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class WeatherCheckService
 {
@@ -64,7 +65,19 @@ class WeatherCheckService
             $this->smsService->send($body, $callerPhone);
         }
 
-        mail("dorin.roseti@gmail.com", "Weather report", $body);
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+        $mail->Username = 'your@gmail.com';
+        $mail->Password = 'ynqhl twzp anlm decn';
+        $mail->setFrom('your@gmail.com', 'Your Name');
+        $mail->addAddress('recipient@example.com');
+        $mail->Subject = 'Test from VPS';
+        $mail->Body = 'Hello, this works!';
+        $mail->send();
 
         return new WeatherCheckResult(
             data: [
@@ -78,4 +91,3 @@ class WeatherCheckService
         );
     }
 }
-
