@@ -2,12 +2,16 @@
 
 namespace Tests\Unit;
 
+use App\Services\SmsBodyBuilder;
+use App\Services\SmsBodyConditions\ColdWeatherCondition;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class WeatherLogicTest extends TestCase
 {
     private const THRESHOLD = 10;
+
+    // ── ColdWeatherCondition threshold tests ──
 
     public static function coldTemperatureProvider(): array
     {
@@ -22,53 +26,66 @@ class WeatherLogicTest extends TestCase
     }
 
     #[DataProvider('coldTemperatureProvider')]
-    public function test_cold_threshold(float $temperature, bool $expectsAlert): void
+    public function test_cold_condition_is_met(float $temperature, bool $expectsMet): void
     {
-        $this->assertSame($expectsAlert, $temperature < self::THRESHOLD);
+        $condition = new ColdWeatherCondition(self::THRESHOLD);
+        $this->assertSame($expectsMet, $condition->isMet($temperature, 'Clear sky', 10));
     }
 
-    public function test_sms_sent_when_cold_and_phone_provided(): void
+    public function test_cold_condition_line_contains_city(): void
     {
-        $this->assertTrue(5 < self::THRESHOLD && (bool) '+14155551234');
+        $condition = new ColdWeatherCondition(self::THRESHOLD);
+        $line = $condition->getLine(7, 'Overcast', 10, 'London');
+        $this->assertStringContainsString('London', $line);
     }
 
-    public function test_sms_not_sent_when_warm_even_with_phone(): void
+    public function test_cold_condition_line_contains_temperature(): void
     {
-        $this->assertFalse(22 < self::THRESHOLD && (bool) '+14155551234');
+        $condition = new ColdWeatherCondition(self::THRESHOLD);
+        $line = $condition->getLine(6, 'Rain', 10, 'Paris');
+        $this->assertStringContainsString('6°C', $line);
     }
 
-    public function test_sms_not_sent_when_cold_but_no_phone(): void
+    // ── SmsBodyBuilder tests ──
+
+    public function test_builder_always_includes_weather_line(): void
     {
-        $this->assertFalse(5 < self::THRESHOLD && (bool) null);
+        $builder = new SmsBodyBuilder([]);
+        $body = $builder->build(22, 'Clear sky', 5, 'Tokyo');
+        $this->assertStringContainsString('📍 Weather in Tokyo', $body);
+        $this->assertStringContainsString('22.0°C', $body);
+        $this->assertStringContainsString('Clear sky', $body);
     }
 
-    public function test_sms_message_contains_city(): void
+    public function test_builder_includes_met_condition_line(): void
     {
-        $this->assertStringContainsString('London', $this->buildMessage('London', 7, 'Overcast'));
+        $condition = new ColdWeatherCondition(10);
+        $builder = new SmsBodyBuilder([$condition]);
+        $body = $builder->build(5, 'Overcast', 10, 'London');
+        $this->assertStringContainsString('🧥 Cold weather alert', $body);
     }
 
-    public function test_sms_message_contains_temperature(): void
+    public function test_builder_skips_unmet_condition(): void
     {
-        $this->assertStringContainsString("6.0°C", $this->buildMessage('Paris', 6, 'Rain'));
+        $condition = new ColdWeatherCondition(10);
+        $builder = new SmsBodyBuilder([$condition]);
+        $body = $builder->build(22, 'Clear sky', 5, 'Tokyo');
+        $this->assertStringNotContainsString('Cold weather alert', $body);
     }
 
-    public function test_sms_message_contains_condition(): void
+    public function test_builder_handles_special_characters(): void
     {
-        $this->assertStringContainsString('Cloudy', $this->buildMessage('Tokyo', 9, 'Cloudy'));
+        $builder = new SmsBodyBuilder([]);
+        $body = $builder->build(8, 'Rain', 10, 'São Paulo');
+        $this->assertStringContainsString('São Paulo', $body);
     }
 
-    public function test_sms_message_handles_special_characters(): void
+    public function test_builder_with_no_conditions_still_outputs_weather(): void
     {
-        $this->assertStringContainsString('São Paulo', $this->buildMessage('São Paulo', 8, 'Rain'));
-    }
-
-    private function buildMessage(string $city, float $temp, string $condition): string
-    {
-        return sprintf(
-            "🧥 Cold weather alert! It's %.1f°C in %s today (%s). Don't forget your coat!",
-            $temp,
-            $city,
-            $condition
-        );
+        $builder = new SmsBodyBuilder([]);
+        $body = $builder->build(15, 'Partly cloudy', 8, 'Berlin');
+        $this->assertStringContainsString('Weather in Berlin', $body);
+        $this->assertStringContainsString('15.0°C', $body);
+        $this->assertStringContainsString('Partly cloudy', $body);
     }
 }

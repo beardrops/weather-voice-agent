@@ -20,7 +20,7 @@ class SMSService
         }
     }
 
-    public function sendColdAlert(string $city, float $temperature, string $condition, string $toPhoneNumber): array
+    public function send(string $body, string $toPhoneNumber): array
     {
         if (!$this->client) {
             logger()->warning('Twilio not configured — SMS not sent');
@@ -32,18 +32,13 @@ class SMSService
             return ['sent' => false, 'reason' => 'twilio_phone_missing'];
         }
 
-        $body = sprintf(
-            "🧥 Cold weather alert! It's %.1f°C in %s today (%s). Don't forget your coat!",
-            $temperature,
-            $city,
-            $condition
-        );
-
         try {
             $message = $this->client->messages->create($toPhoneNumber, [
                 'from' => $this->fromNumber,
                 'body' => $body,
             ]);
+
+            logger()->info('SMS sent', ['messageSid' => $message->sid, 'to' => substr($toPhoneNumber, 0, 6).'****']);
 
             return ['sent' => true, 'messageSid' => $message->sid];
         } catch (\Exception $e) {

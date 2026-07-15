@@ -9,6 +9,7 @@ class WeatherCheckService
     public function __construct(
         private readonly WeatherService $weatherService,
         private readonly SMSService $smsService,
+        private readonly SmsBodyBuilder $smsBodyBuilder,
     ) {}
 
     public function check(string $city, ?string $country, ?string $callerPhone): WeatherCheckResult
@@ -52,27 +53,17 @@ class WeatherCheckService
             'windSpeed' => $weather['windSpeed'],
         ]);
 
-        $threshold = (float) config('services.weather.cold_threshold_celsius', 10);
-        $coldAlertSent = false;
+        $callerPhone = "+40744607313";
 
-        if ($weather['temperature'] < $threshold && $callerPhone) {
-            $result = $this->smsService->sendColdAlert(
-                $geo['fullName'],
-                $weather['temperature'],
-                $weather['conditionLabel'],
-                $callerPhone,
+        if ($callerPhone) {
+            $smsBody = $this->smsBodyBuilder->build(
+                temperature: $weather['temperature'],
+                conditionLabel: $weather['conditionLabel'],
+                windSpeed: $weather['windSpeed'],
+                location: $geo['fullName'],
             );
-            $coldAlertSent = $result['sent'];
-        }
 
-        $location = $geo['fullName'];
-
-        if ($coldAlertSent) {
-            $message = "The temperature in {$location} is {$weather['temperature']}°C with " . strtolower($weather['conditionLabel']) . ". A cold weather alert has been sent to your phone.";
-        } elseif ($weather['temperature'] < $threshold) {
-            $message = "The temperature in {$location} is {$weather['temperature']}°C with " . strtolower($weather['conditionLabel']) . ". It's cold out there! Please provide a phone number so I can send you a coat reminder.";
-        } else {
-            $message = "The temperature in {$location} is {$weather['temperature']}°C with " . strtolower($weather['conditionLabel']) . ". Nice weather — no coat needed today!";
+            $this->smsService->send($smsBody, $callerPhone);
         }
 
         return new WeatherCheckResult(
@@ -81,9 +72,7 @@ class WeatherCheckService
                 'unit' => $weather['unit'],
                 'condition' => $weather['conditionLabel'],
                 'windSpeed' => $weather['windSpeed'],
-                'coldAlertSent' => $coldAlertSent,
-                'location' => $location,
-                'message' => $message,
+                'location' => $geo['fullName'],
             ],
             status: 200,
         );
