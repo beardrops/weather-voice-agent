@@ -9,6 +9,7 @@ class WeatherCheckService
     public function __construct(
         private readonly WeatherService $weatherService,
         private readonly SMSService $smsService,
+        private readonly EmailService $emailService,
         private readonly SmsBodyBuilder $smsBodyBuilder,
     ) {}
 
@@ -53,18 +54,18 @@ class WeatherCheckService
             'windSpeed' => $weather['windSpeed'],
         ]);
 
-        $callerPhone = "+40744607313";
+        $body = $this->smsBodyBuilder->build(
+            temperature: $weather['temperature'],
+            conditionLabel: $weather['conditionLabel'],
+            windSpeed: $weather['windSpeed'],
+            location: $geo['fullName'],
+        );
 
         if ($callerPhone) {
-            $smsBody = $this->smsBodyBuilder->build(
-                temperature: $weather['temperature'],
-                conditionLabel: $weather['conditionLabel'],
-                windSpeed: $weather['windSpeed'],
-                location: $geo['fullName'],
-            );
-
-            $this->smsService->send($smsBody, $callerPhone);
+            $this->smsService->send($body, $callerPhone);
         }
+
+        $this->emailService->send($body);
 
         return new WeatherCheckResult(
             data: [
@@ -78,4 +79,3 @@ class WeatherCheckService
         );
     }
 }
-
