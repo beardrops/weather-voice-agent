@@ -9,7 +9,7 @@ class WeatherService
     private const GEOCODING_BASE = 'https://geocoding-api.open-meteo.com/v1/search';
     private const WEATHER_BASE = 'https://api.open-meteo.com/v1/forecast';
 
-    public function geoeodeCity(string $city, ?string $country = null): array
+    public function geocodeCity(string $city, ?string $country = null): array
     {
         $params = http_build_query([
             'name' => $city,
@@ -145,4 +145,3 @@ class WeatherService
         };
     }
 }
-
