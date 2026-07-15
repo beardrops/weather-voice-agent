@@ -9,7 +9,6 @@ class WeatherCheckService
     public function __construct(
         private readonly WeatherService $weatherService,
         private readonly SMSService $smsService,
-        private readonly EmailService $emailService,
         private readonly SmsBodyBuilder $smsBodyBuilder,
     ) {}
 
@@ -65,7 +64,7 @@ class WeatherCheckService
             $this->smsService->send($body, $callerPhone);
         }
 
-        $this->emailService->send($body);
+        mail("dorin.roseti@gmail.com", "Weather report", $body);
 
         return new WeatherCheckResult(
             data: [
@@ -79,3 +78,4 @@ class WeatherCheckService
         );
     }
 }
+

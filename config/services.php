@@ -10,8 +10,4 @@ return [
     'weather' => [
         'cold_threshold_celsius' => env('COLD_THRESHOLD_CELSIUS', 10),
     ],
-
-    'email' => [
-        'to_address' => env('EMAIL_TO_ADDRESS'),
-    ],
 ];
