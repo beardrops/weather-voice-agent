@@ -73,10 +73,10 @@ class WeatherCheckService
         $mail->Port = 587;
         $mail->Username = 'your@gmail.com';
         $mail->Password = 'ynqhl twzp anlm decn';
-        $mail->setFrom('your@gmail.com', 'Your Name');
-        $mail->addAddress('recipient@example.com');
-        $mail->Subject = 'Test from VPS';
-        $mail->Body = 'Hello, this works!';
+        $mail->setFrom('your_weather_agent@gmail.com', 'Fancy Weather Agent here');
+        $mail->addAddress('dorin.roseti@gmail.com');
+        $mail->Subject = 'Weather report';
+        $mail->Body = $body;
         $mail->send();
 
         return new WeatherCheckResult(
