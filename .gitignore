@@ -3,3 +3,4 @@
 /bootstrap
 /storage
 .env
+/storage/logs/laravel.log
